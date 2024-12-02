@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -25,10 +26,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float lookSensitivity = 1f;
     private float maxLookAngle = 80f;
 
-    [SerializeField] private float maxEnergy = 100f;
+    [SerializeField] private float maxEnergy = 1000f;
     [SerializeField] private float energyToWalk = 2f;
     [SerializeField] private float energyToRun = 5f;
-    [SerializeField] private float energyRecovery = 1f; //For use only in bars and restaurants
+    [SerializeField] private float energyRecovery = 10f; //For use only in bars and restaurants
     private float currentEnergy;
 
     [SerializeField] private Slider energyBar;
@@ -50,12 +51,18 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer();
             LookAround();
-            HandleEnergy();
+            StartCoroutine(HandleEnergy());
         }
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        if (currentEnergy < 0.2f)
         {
-            Debug.Log("Should be moving");
+            speed = 1f;
         }
+    }
+
+    private void Awake()
+    {
+        isMoving = false;
+        isSprinting = false;
     }
 
     private void MovePlayer()
@@ -98,15 +105,28 @@ public class PlayerMovement : MonoBehaviour
         cameraTransform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
     }
 
-    private void HandleEnergy()
+    private IEnumerator HandleEnergy()
     {
-        //TODO
+        if (currentEnergy > 0.2f)
+        {
+            if (isMoving && !isSprinting)
+            {
+                currentEnergy -= energyToWalk;
+            }
+            if (isSprinting)
+            {
+                currentEnergy -= energyToRun;
+            }
+            energyBar.value = currentEnergy;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
         isMoving = moveInput != Vector2.zero;
+        Debug.Log(isMoving);
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -121,6 +141,15 @@ public class PlayerMovement : MonoBehaviour
         {
             //Calculate the require velocity for a jump
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Mushroom"))
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("Has taken a shroom"); //TODO manage the minigame thing
         }
     }
 }
