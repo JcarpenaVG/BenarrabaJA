@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -150,6 +151,20 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Debug.Log("Has taken a shroom"); //TODO manage the minigame thing
+        }
+        /*if (collision.gameObject.tag.Equals("Guayacan"))
+        {
+            //SceneManager.LoadScene("Guayacan");
+            Debug.Log("Va a entrar en el bar pero no esta hecho"); //TODO falta la escena
+        }*/
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Guayacan"))
+        {
+            //SceneManager.LoadScene("Guayacan");
+            Debug.Log("Va a entrar en el bar pero no esta hecho"); //TODO falta la escena
         }
     }
 }

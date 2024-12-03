@@ -8,6 +8,7 @@ TagManager:
   - Building
   - Ground
   - Mushroom
+  - Guayacan
   layers:
   - Default
   - TransparentFX
