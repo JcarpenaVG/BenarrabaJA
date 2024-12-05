@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Mushroom
   - Guayacan
+  - Dart
   layers:
   - Default
   - TransparentFX
