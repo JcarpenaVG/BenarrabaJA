@@ -6,16 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 763fc2232becf824996d8269bff33174
-  - enabled: 1
-    path: Assets/Scenes/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c436029f8352d9849aed2d07bbb4292e,
-      type: 2}
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 173147ff318bec74a8201eb35e918baa,
-      type: 3}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 92f1667227d96204a8d5a9f2d4208d73,
-      type: 2}
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 564a64095af6d9145999fae0b583d010, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0a5f6d52559e49642bfa75825fc2929b, type: 2}
   m_UseUCBPForAssetBundles: 0

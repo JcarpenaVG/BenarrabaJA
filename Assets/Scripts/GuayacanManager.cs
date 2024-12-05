@@ -24,13 +24,14 @@ public class GuayacanManager : MonoBehaviour
     {
         if (canvasPutVR.activeSelf)
         {
-            if (Input.anyKey)
+            if (OVRInput.Get(OVRInput.Button.One))
             {
                 canvasPutVR.SetActive(false);
-                if (!Input.GetKeyUp(KeyCode.Space)) //TODO change to the appropriate key in VR controller
-                {
-                    SceneManager.LoadScene("OutdoorsScene"); //TODO put the player just outside the place
-                }
+            }
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                canvasPutVR.SetActive(false);
+                SceneManager.LoadScene("OutdoorsScene"); //TODO put the player just outside the place
             }
         }
     }
