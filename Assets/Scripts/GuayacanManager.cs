@@ -5,7 +5,6 @@ public class GuayacanManager : MonoBehaviour
 {
     private int points;
     private int dartsThrown;
-    [SerializeField] private GameObject canvasPutVR;
 
     public static GuayacanManager Instance;
 
@@ -17,22 +16,10 @@ public class GuayacanManager : MonoBehaviour
         points = 0;
         dartsThrown = 0;
         Instance = this;
-        canvasPutVR.SetActive(true);
     }
 
     private void Update()
     {
-        if (canvasPutVR.activeSelf)
-        {
-            if (OVRInput.Get(OVRInput.Button.One))
-            {
-                canvasPutVR.SetActive(false);
-            }
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                canvasPutVR.SetActive(false);
-                SceneManager.LoadScene("OutdoorsScene"); //TODO put the player just outside the place
-            }
-        }
+        
     }
 }
