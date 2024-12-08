@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     {
         Instance = this;
         sentences = new Queue<string>();
-        StartDialogue(dialogue); //TODO this should be a trigger
+        //StartDialogue(dialogue); //TODO this should be a trigger
     }
 
     private void Update()

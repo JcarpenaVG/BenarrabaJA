@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject map;
+    [SerializeField] private GameObject minimap;
+
     private bool paused = false;
 
     public bool Paused { get => paused; set => paused = value; }
@@ -27,6 +29,12 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.M) && !pauseMenu.activeSelf)
         {
             ShowMap();
+            minimap.SetActive(false);
+        }
+        if (!map.activeSelf)
+        {
+            minimap.SetActive(true);
+
         }
     }
 
@@ -57,13 +65,12 @@ public class GameController : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(("MainMenu"));
-        //TODO Actually create the main menu
+        SceneManager.LoadScene(("MainMenu"));        
     }
 
     private void ShowMap()
     {
-        map.SetActive(!map.activeSelf);
+        map.SetActive(!map.activeSelf);               
     }
 
 }
