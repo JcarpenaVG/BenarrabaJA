@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Slider energyBar;
 
+    [SerializeField] private GameObject winMenu;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isMoving = false;
         isSprinting = false;
+        winMenu.SetActive(false);
     }
 
     private void MovePlayer()
@@ -127,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
         isMoving = moveInput != Vector2.zero;
-        Debug.Log(isMoving);
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -154,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Mushroom"))
+        if (collision.gameObject.CompareTag("Mushroom"))
         {
             Destroy(collision.gameObject);
             Debug.Log("Has taken a shroom"); //TODO manage the minigame thing
@@ -163,16 +166,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("Guayacan"))
+        if (other.gameObject.CompareTag("Guayacan"))
         {
-            //SceneManager.LoadScene("Guayacan");
+            GameController.Instance.ChangeScene("Guayacan");
             Debug.Log("Va a entrar en el bar pero no esta hecho"); //TODO falta la escena
         }
-        if (other.gameObject.tag.Equals("Energy"))
+        if (other.gameObject.tag.Equals("Outdoors"))
+        {
+            GameController.Instance.ChangeScene("OutdoorsScene");
+            Debug.Log("Esto sigue activo");
+        }
+        if (other.gameObject.CompareTag("Energy"))
         {
             Destroy(other.gameObject);
             currentEnergy += energyRecovery;
             if (currentEnergy > maxEnergy) currentEnergy = maxEnergy;
+        }
+        if (other.gameObject.CompareTag("Win"))
+        {
+            winMenu.SetActive(true);
+            GameController.Instance.Paused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
         }
     }
 }

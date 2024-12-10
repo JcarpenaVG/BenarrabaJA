@@ -92,4 +92,12 @@ public class DialogueManager : MonoBehaviour
         return symbols.Contains(letter);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            StartDialogue(dialogue);
+        }
+    }
+
 }

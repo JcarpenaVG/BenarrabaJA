@@ -29,11 +29,11 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.M) && !pauseMenu.activeSelf)
         {
             ShowMap();
-            minimap.SetActive(false);
+            minimap?.SetActive(false);
         }
         if (!map.activeSelf)
         {
-            minimap.SetActive(true);
+            minimap?.SetActive(true);
 
         }
     }
@@ -70,7 +70,34 @@ public class GameController : MonoBehaviour
 
     private void ShowMap()
     {
-        map.SetActive(!map.activeSelf);               
+        map.SetActive(!map.activeSelf);
+        if (map.activeSelf)
+        {
+            Paused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Paused = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void ChangeScene(string name)
+    {
+        DontDestroyOnLoad(this);
+        string prevScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(name);
+        if (prevScene.Equals("Guayacan"))
+        {
+            GameObject player = GameObject.Find("Player");
+            if (player != null)
+            {
+                Debug.Log("Ha encontrado player");
+            }
+        }
     }
 
 }

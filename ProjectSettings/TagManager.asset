@@ -11,6 +11,7 @@ TagManager:
   - Guayacan
   - Dart
   - Energy
+  - Win
   layers:
   - Default
   - TransparentFX
