@@ -12,6 +12,8 @@ TagManager:
   - Dart
   - Energy
   - Win
+  - Outdoors
+  - SpawnPosition
   layers:
   - Default
   - TransparentFX
