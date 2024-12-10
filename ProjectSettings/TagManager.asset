@@ -10,6 +10,7 @@ TagManager:
   - Mushroom
   - Guayacan
   - Dart
+  - Energy
   layers:
   - Default
   - TransparentFX

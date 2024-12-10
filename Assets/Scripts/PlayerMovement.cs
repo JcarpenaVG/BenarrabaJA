@@ -145,6 +145,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Receive Sprint input from Input System and change isSprinting state
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        //when action started or mantained
+        isSprinting = context.started || context.performed;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Mushroom"))
