@@ -7850,7 +7850,7 @@ MonoBehaviour:
   gravity: -9.81
   jumpForce: 1.5
   lookSensitivity: 0.2
-  maxEnergy: 1000
+  maxEnergy: 10000
   energyToWalk: 2
   energyToRun: 5
   energyRecovery: 1

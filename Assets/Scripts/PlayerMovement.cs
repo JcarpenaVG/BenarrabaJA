@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxEnergy = 1000f;
     [SerializeField] private float energyToWalk = 2f;
     [SerializeField] private float energyToRun = 5f;
-    [SerializeField] private float energyRecovery = 10f; //For use only in bars and restaurants
+    [SerializeField] private float energyRecovery = 10f;
     private float currentEnergy;
 
     [SerializeField] private Slider energyBar;
@@ -152,11 +152,6 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
             Debug.Log("Has taken a shroom"); //TODO manage the minigame thing
         }
-        /*if (collision.gameObject.tag.Equals("Guayacan"))
-        {
-            //SceneManager.LoadScene("Guayacan");
-            Debug.Log("Va a entrar en el bar pero no esta hecho"); //TODO falta la escena
-        }*/
     }
 
     private void OnTriggerEnter(Collider other)
@@ -165,6 +160,12 @@ public class PlayerMovement : MonoBehaviour
         {
             //SceneManager.LoadScene("Guayacan");
             Debug.Log("Va a entrar en el bar pero no esta hecho"); //TODO falta la escena
+        }
+        if (other.gameObject.tag.Equals("Energy"))
+        {
+            Destroy(other.gameObject);
+            currentEnergy += energyRecovery;
+            if (currentEnergy > maxEnergy) currentEnergy = maxEnergy;
         }
     }
 }
