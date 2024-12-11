@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject map;
     [SerializeField] private GameObject minimap;
+    [SerializeField] private GameObject winMenu;
+    [SerializeField] private GameObject loseMenu;
+    [SerializeField] private GameObject dialogueWindow;
+    [SerializeField] private TMP_Text bunuelosCounter;
+    private int bunuelosTaken;
 
     private bool paused = false;
 
@@ -17,16 +23,18 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
         UnpauseGame();
+        bunuelosTaken = 0;
+        bunuelosCounter.text = bunuelosTaken.ToString("00");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && !map.activeSelf)
+        if (Input.GetKeyUp(KeyCode.Escape) && !map.activeSelf && !winMenu.activeSelf && !dialogueWindow.activeSelf && !loseMenu.activeSelf)
         {
             HandlePause();
         }
-        if (Input.GetKeyUp(KeyCode.M) && !pauseMenu.activeSelf)
+        if (Input.GetKeyUp(KeyCode.M) && !pauseMenu.activeSelf && !winMenu.activeSelf && !dialogueWindow.activeSelf && !loseMenu.activeSelf)
         {
             ShowMap();
             minimap?.SetActive(false);
@@ -98,6 +106,12 @@ public class GameController : MonoBehaviour
                 Debug.Log("Ha encontrado player");
             }
         }
+    }
+
+    public void TookBunuelo()
+    {
+        bunuelosTaken++;
+        bunuelosCounter.text = bunuelosTaken.ToString("00");
     }
 
 }
