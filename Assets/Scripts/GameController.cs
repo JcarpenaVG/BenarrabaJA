@@ -55,6 +55,8 @@ public class GameController : MonoBehaviour
         else PauseGame();
     }
 
+    //Holiwi, vamos a ser conflictivos :3
+    //Van a ocurrir cosas terribles, estoy seguro D:
     private void PauseGame()
     {
         Paused = true;
