@@ -16,12 +16,12 @@ public class DialogueManager : MonoBehaviour
     {
         Instance = this;
         sentences = new Queue<string>();
-        //StartDialogue(dialogue); //TODO this should be a trigger
+        StartDialogue(dialogue); //TODO this should be a trigger
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.N))
         {
             DisplayNextSentence();
         }
@@ -33,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     /// <param name="dialogue"></param>
     public void StartDialogue(Dialogue dialogue)
     {
+        //GameController.Instance.Paused = true;
         textBox.SetActive(true);
         Time.timeScale = 0f;
         sentences.Clear();
@@ -84,6 +85,7 @@ public class DialogueManager : MonoBehaviour
     {
         textBox.SetActive(false);
         Time.timeScale = 1f;
+        //GameController.Instance.Paused = false;
     }
 
     private bool IsSymbol(char letter)

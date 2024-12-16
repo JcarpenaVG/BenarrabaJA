@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Slider energyBar;
 
     [SerializeField] private GameObject winMenu;
+    [SerializeField] private GameObject loseMenu;
+    [SerializeField] private GameObject dialogueWindow;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameController.Instance.Paused)
+        if (!GameController.Instance.Paused && !dialogueWindow.activeSelf && !winMenu.activeSelf && !loseMenu.activeSelf)
         {
             MovePlayer();
             LookAround();
@@ -119,12 +121,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentEnergy -= energyToWalk;
             }
-            if (isSprinting)
+            if (isSprinting && isMoving)
             {
                 currentEnergy -= energyToRun;
             }
             energyBar.value = currentEnergy;
             yield return new WaitForSeconds(0.2f);
+        }
+        else
+        {
+            loseMenu.SetActive(true);
+            GameController.Instance.Paused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
         }
     }
 
@@ -182,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
             currentEnergy += energyRecovery;
             if (currentEnergy > maxEnergy) currentEnergy = maxEnergy;
+            GameController.Instance.TookBunuelo();
         }
         if (other.gameObject.CompareTag("Win"))
         {
