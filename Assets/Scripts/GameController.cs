@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
     }
 
     //Hola, esto debería crear un conflicto
-    //Y tienen que pasar cosas horribles D:
+    //Haciendo pruebas
     private void PauseGame()
     {
         Paused = true;
